@@ -107,9 +107,26 @@
   margin-left: 0.5rem;
 }
 
+.guildCardList {
+  width: 25%;
+}
+
+.guildCard {
+  text-align: center;
+  margin: 2rem 0;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+
+  .guildCardList {
+    width: 85%;
+  }
+
+  .appTitle {
+    display: none;
   }
 }
