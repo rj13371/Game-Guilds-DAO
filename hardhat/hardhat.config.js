@@ -1,9 +1,14 @@
 require("dotenv").config();
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-waffle");
-
+require("dotenv").config({ path: ".env" });
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
+
+const ALCHEMY_API_KEY_URL = process.env.ALCHEMY_API_KEY_URL;
+
+const RINKEBY_PRIVATE_KEY = process.env.RINKEBY_PRIVATE_KEY;
+
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
 
@@ -62,9 +67,8 @@ module.exports = {
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     rinkeby: {
-      url: process.env.RINKEBY_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      url: ALCHEMY_API_KEY_URL,
+      accounts: [RINKEBY_PRIVATE_KEY],
     },
   },
   gasReporter: {
