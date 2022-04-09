@@ -6,6 +6,7 @@ import { Card } from "web3uikit";
 // TODO: Use guilds from back end
 import Guilds from "../mock/guilds";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -23,6 +24,12 @@ const Home: NextPage = () => {
 
       <div className="main">
         <h1 className={styles.appTitle}>Welcome to Game Guilds</h1>
+        <p>
+          Want to create a new community?{" "}
+          <Link href="/guild/create">
+            <a style={{ textDecoration: "underline" }}>Click here</a>
+          </Link>
+        </p>
         <div className={styles.guildCardList}>
           {Guilds.map((guild, index) => (
             // TODO: Change key to a unique identifier
