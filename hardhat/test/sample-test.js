@@ -1,19 +1,23 @@
 const { expect } = require("chai");
-const { ethers } = require("hardhat");
+const { ethers, waffle } = require("hardhat");
+const assert = require("assert");
+const { loadFixture, deployContract } = waffle;
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe("GuildNFT tests", function () {
+  it("Should create a guild", async function () {
+    [deployer, user, ...addrs] = await ethers.getSigners();
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
+    const GuildNFT = await ethers.getContractFactory("GuildNFT");
+    const guildNFTContract = await GuildNFT.deploy();
+    await guildNFTContract.deployed();
 
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+    const createGuildTx = await guildNFTContract.connect(user).createGuild({
+      guildName: "test",
+    });
 
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
+    const tx = await createGuildTx.wait();
+    console.log(tx);
 
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+    expect(true).to.equal(true);
   });
 });
