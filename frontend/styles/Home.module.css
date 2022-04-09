@@ -129,4 +129,8 @@
   .appTitle {
     display: none;
   }
+
+  .main {
+    padding: 1rem 0;
+  }
 }
