@@ -5,8 +5,11 @@ import styles from "../styles/Home.module.css";
 import { Card } from "web3uikit";
 // TODO: Use guilds from back end
 import Guilds from "../mock/guilds";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,13 +21,16 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.main}>
+      <div className="main">
         <h1 className={styles.appTitle}>Welcome to Game Guilds</h1>
         <div className={styles.guildCardList}>
           {Guilds.map((guild, index) => (
             // TODO: Change key to a unique identifier
             <div className={styles.guildCard} key={index}>
-              <Card description="Click to join this community!">
+              <Card
+                onClick={() => router.push(`/guild/${guild}`)}
+                description="Click to join this community!"
+              >
                 <h2>{guild}</h2>
               </Card>
             </div>
