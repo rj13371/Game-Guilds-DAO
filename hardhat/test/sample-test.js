@@ -19,8 +19,12 @@ describe("GuildNFT tests", function () {
       .connect(user)
       .mintNFT(user.address, "helloWorld", 0);
 
+    const balanceOf = await guildNFTContract
+      .connect(user)
+      .balanceOf(user.address);
+
     const returnGuilds = await guildNFTContract.connect(user).returnGuilds();
-    console.log(returnGuilds);
+    console.log(balanceOf, returnGuilds);
 
     expect(returnGuilds[0].guildMasterAddress).to.equal(user.address);
   });
