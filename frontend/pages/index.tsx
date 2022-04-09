@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <div className={styles.main}>
         <h1 className={styles.appTitle}>Welcome to Game Guilds</h1>
         <div className={styles.guildCardList}>
           {Guilds.map((guild, index) => (
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
             </div>
           ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 };
