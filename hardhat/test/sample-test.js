@@ -11,13 +11,17 @@ describe("GuildNFT tests", function () {
     const guildNFTContract = await GuildNFT.deploy();
     await guildNFTContract.deployed();
 
-    const createGuildTx = await guildNFTContract.connect(user).createGuild({
-      guildName: "test",
-    });
+    const createGuildTx = await guildNFTContract
+      .connect(user)
+      .createGuild("test", 100);
 
-    const tx = await createGuildTx.wait();
-    console.log(tx);
+    const mintNFT = await guildNFTContract
+      .connect(user)
+      .mintNFT(user.address, "helloWorld", 0);
 
-    expect(true).to.equal(true);
+    const returnGuilds = await guildNFTContract.connect(user).returnGuilds();
+    console.log(returnGuilds);
+
+    expect(returnGuilds[0].guildMasterAddress).to.equal(user.address);
   });
 });
