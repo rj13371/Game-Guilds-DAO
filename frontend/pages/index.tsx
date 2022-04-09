@@ -24,7 +24,7 @@ const Home: NextPage = () => {
           {Guilds.map((guild, index) => (
             // TODO: Change key to a unique identifier
             <div className={styles.guildCard} key={index}>
-              <Card description="Click to join this community!" title={guild}>
+              <Card description="Click to join this community!">
                 <h2>{guild}</h2>
               </Card>
             </div>
