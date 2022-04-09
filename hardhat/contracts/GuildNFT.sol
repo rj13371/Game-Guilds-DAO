@@ -14,33 +14,50 @@ contract GuildNFT is ERC721URIStorage {
     struct Guild {
         address guildMasterAddress;
         string guildName;
+        uint256 maxGuildMembers;
+        uint256 currentMembers;
     }
 
     Guild[] Guilds;
 
-    mapping(uint256 => Guild[]) public tokenIdsToGuild;
+    mapping(uint256 => uint256) public tokenIdsToGuildId;
 
-    function createGuild(string memory guildName)
+    function createGuild(string memory guildName, uint256 maxGuildMembers)
         public
-        returns (address)
-    {
-        Guild memory guild = Guild(msg.sender, guildName);
+        returns (Guild[] memory)
+    {   
+        require(maxGuildMembers < 100000);
+        Guild memory guild = Guild(msg.sender, guildName, maxGuildMembers, 1);
         Guilds.push(guild);
 
-        return msg.sender;
+        return Guilds;
     }
 
-    function mintNFT(address recipient, string memory tokenURI)
+    function mintNFT(address recipient, string memory tokenURI, uint256 guildId)
         public
         returns (uint256)
     {
+
+        Guilds[guildId].currentMembers += 1;
+
+        if(Guilds[guildId].maxGuildMembers < Guilds[guildId].currentMembers){
+            revert("Max Guild Members Reached");
+        }
+
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
-        tokenIdsToGuild[newItemId];
+        tokenIdsToGuildId[newItemId] = guildId;
         _mint(recipient, newItemId);
         _setTokenURI(newItemId, tokenURI);
 
         return newItemId;
+    }
+
+    function returnGuilds()
+        public view
+        returns (Guild[] memory)
+    {
+        return Guilds;
     }
 }
