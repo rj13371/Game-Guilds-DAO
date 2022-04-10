@@ -9,7 +9,6 @@ Game Guilds DAO
 - NextJS
 - Moralis
 - SnapshotJS
-- Fleek
 - IPFS
 
 ## How it's made
