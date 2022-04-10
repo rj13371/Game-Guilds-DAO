@@ -11,7 +11,9 @@ import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../../constants";
 
 const Guild: NextPage = () => {
   const router = useRouter();
-  const { name } = router.query;
+  console.log(router.query);
+  const guildIndex = router.query.index;
+  const name = router.query.name;
   const { user } = useMoralis();
   const Web3Api = useMoralisWeb3Api();
 
@@ -48,7 +50,11 @@ const Guild: NextPage = () => {
   return (
     <div className="main">
       <h1>{name}</h1>
-      <MintNFT guildId={1} />
+      {guildIndex && typeof guildIndex === "string" ? (
+        <MintNFT guildId={parseInt(guildIndex)} />
+      ) : (
+        ""
+      )}
 
       <Form
         id="poll"
