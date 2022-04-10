@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextPage } from "next";
 import { useMoralis } from "react-moralis";
 import { Button, Input } from "web3uikit";

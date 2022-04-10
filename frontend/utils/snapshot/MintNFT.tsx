@@ -1,35 +1,36 @@
-import React from 'react'
-import { useApiContract, useMoralis } from 'react-moralis'
-import { useMoralisWeb3Api } from 'react-moralis'
-import { useEffect, useState } from 'react'
-import { ethers, BigNumber } from 'ethers'
-import Moralis from 'moralis'
-import { Button } from 'web3uikit'
-import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from '../../constants'
+// @ts-nocheck
+import React from "react";
+import { useApiContract, useMoralis } from "react-moralis";
+import { useMoralisWeb3Api } from "react-moralis";
+import { useEffect, useState } from "react";
+import { ethers, BigNumber } from "ethers";
+import Moralis from "moralis";
+import { Button } from "web3uikit";
+import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../../constants";
 
 type Props = {
-  guildId: number
-}
+  guildId: number;
+};
 
 export default function MintNFT({ guildId }: Props) {
-  const { account } = useMoralis()
-  const ethers = Moralis.web3Library
+  const { account } = useMoralis();
+  const ethers = Moralis.web3Library;
 
   const mintNFT = async () => {
-    const web3Provider = await Moralis.enableWeb3()
+    const web3Provider = await Moralis.enableWeb3();
 
     //const provider = new ethers.providers.Web3Provider(Moralis.provider, "any")}
     //  provider = new ethers.providers.JsonRpcProvider();
-    await web3Provider.send('eth_requestAccounts', [0])
-    let signer = web3Provider.getSigner()
+    await web3Provider.send("eth_requestAccounts", [0]);
+    let signer = web3Provider.getSigner();
 
     const contract = new ethers.Contract(
       NFT_CONTRACT_ADDRESS,
       NFT_CONTRACT_ABI,
-      web3Provider,
-    )
+      web3Provider
+    );
 
-    let signedContract = contract.connect(signer)
+    let signedContract = contract.connect(signer);
 
     const mint = async () => {
       let mintTx = await signedContract
@@ -37,14 +38,14 @@ export default function MintNFT({ guildId }: Props) {
           gasPrice: signer.getGasPrice(),
           gasLimit: 300000,
         })
-        .catch((e) => window.alert(e.message))
+        .catch((e) => window.alert(e.message));
 
-      const res = await mintTx.wait()
-      console.log(res)
-    }
+      const res = await mintTx.wait();
+      console.log(res);
+    };
 
-    mint()
-  }
+    mint();
+  };
 
   return (
     <>
@@ -56,5 +57,5 @@ export default function MintNFT({ guildId }: Props) {
         type="button"
       />
     </>
-  )
+  );
 }
