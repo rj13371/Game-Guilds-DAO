@@ -13,18 +13,27 @@ describe("GuildNFT tests", function () {
 
     const createGuildTx = await guildNFTContract
       .connect(user)
-      .createGuild("test", 100);
+      .createGuild("test", "www.google.com", 99);
+
+    await guildNFTContract
+      .connect(user)
+      .createGuild("guild2", "www.google.com", 100);
 
     const mintNFT = await guildNFTContract
       .connect(user)
-      .mintNFT(user.address, "helloWorld", 0);
+      .mintNFT(user.address, 0);
+
+    await guildNFTContract.connect(user).mintNFT(user.address, 1);
+    await guildNFTContract.connect(user).mintNFT(user.address, 0);
 
     const balanceOf = await guildNFTContract
       .connect(user)
       .balanceOf(user.address);
 
     const returnGuilds = await guildNFTContract.connect(user).returnGuilds();
-    console.log(balanceOf, returnGuilds);
+    const tokenIds = await guildNFTContract.connect(user).tokenIdsToGuildId(3);
+    const tokenURI = await guildNFTContract.connect(user).tokenURI(1);
+    console.log(tokenIds);
 
     expect(returnGuilds[0].guildMasterAddress).to.equal(user.address);
   });

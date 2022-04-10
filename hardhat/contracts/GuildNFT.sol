@@ -14,6 +14,7 @@ contract GuildNFT is ERC721URIStorage {
     struct Guild {
         address guildMasterAddress;
         string guildName;
+        string guildNFTURI;
         uint256 maxGuildMembers;
         uint256 currentMembers;
     }
@@ -22,18 +23,18 @@ contract GuildNFT is ERC721URIStorage {
 
     mapping(uint256 => uint256) public tokenIdsToGuildId;
 
-    function createGuild(string memory guildName, uint256 maxGuildMembers)
+    function createGuild(string memory guildName, string memory guildNFTURI, uint256 maxGuildMembers)
         public
         returns (Guild[] memory)
     {   
         require(maxGuildMembers < 100000);
-        Guild memory guild = Guild(msg.sender, guildName, maxGuildMembers, 1);
+        Guild memory guild = Guild(msg.sender, guildName, guildNFTURI, maxGuildMembers, 1);
         Guilds.push(guild);
 
         return Guilds;
     }
 
-    function mintNFT(address recipient, string memory tokenURI, uint256 guildId)
+    function mintNFT(address recipient, uint256 guildId)
         public
         returns (uint256)
     {
@@ -41,7 +42,7 @@ contract GuildNFT is ERC721URIStorage {
         Guilds[guildId].currentMembers += 1;
 
         if(Guilds[guildId].maxGuildMembers < Guilds[guildId].currentMembers){
-            revert("Max Guild Members Reached");
+            revert("Max Guild Members Reached, cannot mint new membership");
         }
 
         _tokenIds.increment();
@@ -49,7 +50,7 @@ contract GuildNFT is ERC721URIStorage {
         uint256 newItemId = _tokenIds.current();
         tokenIdsToGuildId[newItemId] = guildId;
         _mint(recipient, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+        _setTokenURI(newItemId, Guilds[guildId].guildNFTURI);
 
         return newItemId;
     }
@@ -60,4 +61,5 @@ contract GuildNFT is ERC721URIStorage {
     {
         return Guilds;
     }
+
 }
