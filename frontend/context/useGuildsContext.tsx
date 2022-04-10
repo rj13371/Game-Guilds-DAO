@@ -5,16 +5,22 @@ import {
   useState,
   useEffect,
 } from "react";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../constants";
 import Moralis from "moralis";
 
 interface IGuildsContext {
   guildData: any | undefined;
+  createGuild: (
+    Guildname: string,
+    NFTPicture: File,
+    maxMembers: number
+  ) => void;
 }
 
 export const GuildsContext = createContext<IGuildsContext>({
   guildData: undefined,
+  createGuild: () => null,
 });
 
 export const GuildsProvider = ({
@@ -26,6 +32,7 @@ export const GuildsProvider = ({
   const { isInitialized } = useMoralis();
 
   console.log(Moralis.isWeb3Enabled());
+  const Web3Api = useMoralisWeb3Api();
   const getGuilds = async () => {
     const sendOptions = {
       abi: NFT_CONTRACT_ABI,
@@ -39,6 +46,14 @@ export const GuildsProvider = ({
     console.log(receipt);
   };
 
+  const createGuild = async (
+    guildName: string,
+    NFTPicture: File,
+    maxMembers: number
+  ) => {
+    console.log(guildName, NFTPicture, maxMembers);
+  };
+
   useEffect(() => {
     getGuilds();
   }, [Moralis.isWeb3Enabled]);
@@ -46,7 +61,7 @@ export const GuildsProvider = ({
   console.log(guildData);
 
   return (
-    <GuildsContext.Provider value={{ guildData }}>
+    <GuildsContext.Provider value={{ guildData, createGuild }}>
       {children}
     </GuildsContext.Provider>
   );

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@snapshot-labs/snapshot.js": "^0.3.64",
+    "formik": "^2.2.9",
     "moralis": "^1.5.9",
     "next": "12.1.4",
     "react": "18.0.0",
