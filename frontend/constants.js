@@ -1,3 +1,6 @@
+export const MORALIS_SERVER_URL =
+  "https://vqi9uxppuwwk.usemoralis.com:2053/server";
+export const MORALIS_APP_ID = "WVrFHH8uIlmzZ2f4Rb23nYsAqT4MFRm1eIPaXU0A";
 export const NFT_CONTRACT_ADDRESS =
   "0x04db06CB3bB14B77319c768C24062C8AE851a525";
 export const NFT_CONTRACT_ABI = [
