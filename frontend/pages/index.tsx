@@ -8,18 +8,32 @@ import Guilds from "../mock/guilds";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useMoralis } from "react-moralis";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../constants";
+import Moralis from "moralis";
 
 const Home: NextPage = () => {
+  const [guilds, setGuilds] = useState<any | null>();
   const router = useRouter();
-  const { isInitialized, isAuthenticated, isWeb3Enabled, enableWeb3 } =
-    useMoralis();
+  const { isInitialized, isWeb3Enabled } = useMoralis();
 
   useEffect(() => {
-    if (isInitialized && isAuthenticated && !isWeb3Enabled) {
-      enableWeb3();
+    if (isInitialized && isWeb3Enabled) {
+      const getGuilds = async () => {
+        const sendOptions = {
+          contractAddress: NFT_CONTRACT_ADDRESS,
+          abi: NFT_CONTRACT_ABI,
+          functionName: "returnGuilds",
+          chain: "rinkeby",
+        };
+        const transaction = await Moralis.executeFunction(sendOptions);
+
+        console.log(transaction);
+        setGuilds(transaction);
+      };
+      getGuilds();
     }
-  }, [isInitialized, isAuthenticated, isWeb3Enabled]);
+  }, [isInitialized, isWeb3Enabled]);
 
   return (
     <div className={styles.container}>
@@ -41,17 +55,27 @@ const Home: NextPage = () => {
           </Link>
         </p>
         <div className={styles.guildCardList}>
-          {Guilds.map((guild, index) => (
-            // TODO: Change key to a unique identifier
-            <div className={styles.guildCard} key={index}>
-              <Card
-                onClick={() => router.push(`/guild/${guild}`)}
-                description="Click to join this community!"
-              >
-                <h2>{guild}</h2>
-              </Card>
-            </div>
-          ))}
+          {guilds &&
+            guilds.map((guild) => (
+              <div className={styles.guildCard} key={guild[1]}>
+                <Card
+                  onClick={() =>
+                    router.push({
+                      pathname: `/guild/${guild[1]}`,
+                      query: { index: `${guild[4]}` },
+                    })
+                  }
+                  description="Click to join this community!"
+                >
+                  <Image
+                    src={guild[2]}
+                    alt="Guild logo"
+                    width="200"
+                    height="200"
+                  />
+                </Card>
+              </div>
+            ))}
         </div>
       </div>
     </div>
