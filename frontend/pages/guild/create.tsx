@@ -72,7 +72,6 @@ const CreateGuild: NextPage = () => {
 
   return (
     <div className="main">
-      <button onClick={() => createProposal()}>click</button>
       <h2>Create Guild</h2>
       <Formik
         initialValues={initialValues}
