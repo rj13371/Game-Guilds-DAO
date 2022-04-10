@@ -5,12 +5,11 @@ import { createProposal } from "../../utils/snapshot/snapshot";
 import styles from "../../styles/Guild.module.css";
 import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../../constants";
 import { useGuilds } from "../../context/useGuildsContext";
+import useWindowWidth from "../../helpers/hooks/useWindowWidth";
 
 const CreateGuild: NextPage = () => {
   const { user } = useMoralis();
-  const { guildData } = useGuilds();
-
-  console.log(guildData);
+  const windowWidth = useWindowWidth();
 
   const handleSubmit = () => {
     console.log("hello");
@@ -34,7 +33,7 @@ const CreateGuild: NextPage = () => {
           id="name"
           placeholder="Guild name"
           type="text"
-          width={window.innerWidth && window.innerWidth < 600 ? "80%" : "500px"}
+          width={windowWidth && windowWidth < 600 ? "80%" : "500px"}
         />
         <Input
           label="Max members"
@@ -42,7 +41,7 @@ const CreateGuild: NextPage = () => {
           id="members"
           placeholder="Max members"
           type="number"
-          width={window.innerWidth && window.innerWidth < 600 ? "80%" : "500px"}
+          width={windowWidth && windowWidth < 600 ? "80%" : "500px"}
         />
         <label className={styles.labelFile} htmlFor="file">
           Upload logo
