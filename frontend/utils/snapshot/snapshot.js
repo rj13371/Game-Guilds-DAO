@@ -1,13 +1,24 @@
 import snapshot from "@snapshot-labs/snapshot.js";
-import Moralis from "moralis";
 import { Web3Provider } from "@ethersproject/providers";
 import Web3Modal from "web3modal";
 import { getAddress } from "@ethersproject/address";
 
-export async function createProposal() {
+export async function createProposal(data, currentBlock) {
   const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
   const client = new snapshot.Client712(hub);
-  //const web3 = await Moralis.enableWeb3();
+
+  const timestamp = Math.round(new Date().getTime() / 1000);
+
+  let choices = [];
+  for (let i = 3; i < 7; i++) {
+    choices.push(data[i].inputResult);
+  }
+  const title = data[0].inputResult;
+  const body = data[1].inputResult;
+  let toTimestamp = Date.parse(data[2].inputResult[0]);
+  console.log(toTimestamp, data[2].inputResult[0]);
+  const end = toTimestamp / 1000;
+  const start = timestamp + 3600;
 
   const web3Modal = new Web3Modal({
     network: "rinkeby",
@@ -19,20 +30,16 @@ export async function createProposal() {
   const provider_ = await web3Modal.connect();
   const account = provider_.accounts?.[0] || provider_.selectedAddress;
 
-  const timestamp = Math.round(new Date().getTime() / 1000);
-  const start = timestamp + 3600;
-  const end = start + 259200;
-
   const receipt = await client.proposal(web3, getAddress(account), {
     space: "dappchain.eth",
     type: "single-choice",
-    title: "Test proposal using Snapshot.js",
-    body: "\tbody\t\t",
-    choices: ["Alice", "Bob", "Carol"],
+    title: title,
+    body: `\t${body}\t\t`,
+    choices: choices,
     start,
     end,
     timestamp,
-    snapshot: 10474139,
+    snapshot: currentBlock,
     network: "4",
     strategies:
       '[{"name":"erc721","network":"4","params":{"symbol":"GGD","address":"0x04db06CB3bB14B77319c768C24062C8AE851a525"}}]',
