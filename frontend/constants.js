@@ -2,9 +2,13 @@ export const MORALIS_SERVER_URL =
   "https://vqi9uxppuwwk.usemoralis.com:2053/server";
 export const MORALIS_APP_ID = "WVrFHH8uIlmzZ2f4Rb23nYsAqT4MFRm1eIPaXU0A";
 export const NFT_CONTRACT_ADDRESS =
-  "0x04db06CB3bB14B77319c768C24062C8AE851a525";
+  "0x85214a5621c0EeE716bdC87748D865c197D2Cf0a";
 export const NFT_CONTRACT_ABI = [
-  { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+  {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
   {
     anonymous: false,
     inputs: [
@@ -45,7 +49,12 @@ export const NFT_CONTRACT_ABI = [
         name: "operator",
         type: "address",
       },
-      { indexed: false, internalType: "bool", name: "approved", type: "bool" },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "approved",
+        type: "bool",
+      },
     ],
     name: "ApprovalForAll",
     type: "event",
@@ -53,8 +62,18 @@ export const NFT_CONTRACT_ABI = [
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: "address", name: "from", type: "address" },
-      { indexed: true, internalType: "address", name: "to", type: "address" },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -67,8 +86,16 @@ export const NFT_CONTRACT_ABI = [
   },
   {
     inputs: [
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
     ],
     name: "approve",
     outputs: [],
@@ -76,16 +103,41 @@ export const NFT_CONTRACT_ABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "address", name: "owner", type: "address" }],
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+    ],
     name: "balanceOf",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      { internalType: "string", name: "guildName", type: "string" },
-      { internalType: "uint256", name: "maxGuildMembers", type: "uint256" },
+      {
+        internalType: "string",
+        name: "guildName",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "guildNFTURI",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "maxGuildMembers",
+        type: "uint256",
+      },
     ],
     name: "createGuild",
     outputs: [
@@ -96,9 +148,26 @@ export const NFT_CONTRACT_ABI = [
             name: "guildMasterAddress",
             type: "address",
           },
-          { internalType: "string", name: "guildName", type: "string" },
-          { internalType: "uint256", name: "maxGuildMembers", type: "uint256" },
-          { internalType: "uint256", name: "currentMembers", type: "uint256" },
+          {
+            internalType: "string",
+            name: "guildName",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "guildNFTURI",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "maxGuildMembers",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "currentMembers",
+            type: "uint256",
+          },
         ],
         internalType: "struct GuildNFT.Guild[]",
         name: "",
@@ -109,44 +178,101 @@ export const NFT_CONTRACT_ABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
     name: "getApproved",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      { internalType: "address", name: "owner", type: "address" },
-      { internalType: "address", name: "operator", type: "address" },
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "operator",
+        type: "address",
+      },
     ],
     name: "isApprovedForAll",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      { internalType: "address", name: "recipient", type: "address" },
-      { internalType: "string", name: "tokenURI", type: "string" },
-      { internalType: "uint256", name: "guildId", type: "uint256" },
+      {
+        internalType: "address",
+        name: "recipient",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "guildId",
+        type: "uint256",
+      },
     ],
     name: "mintNFT",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
     name: "name",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
     name: "ownerOf",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
@@ -161,9 +287,26 @@ export const NFT_CONTRACT_ABI = [
             name: "guildMasterAddress",
             type: "address",
           },
-          { internalType: "string", name: "guildName", type: "string" },
-          { internalType: "uint256", name: "maxGuildMembers", type: "uint256" },
-          { internalType: "uint256", name: "currentMembers", type: "uint256" },
+          {
+            internalType: "string",
+            name: "guildName",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "guildNFTURI",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "maxGuildMembers",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "currentMembers",
+            type: "uint256",
+          },
         ],
         internalType: "struct GuildNFT.Guild[]",
         name: "",
@@ -175,9 +318,21 @@ export const NFT_CONTRACT_ABI = [
   },
   {
     inputs: [
-      { internalType: "address", name: "from", type: "address" },
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
+      {
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
     ],
     name: "safeTransferFrom",
     outputs: [],
@@ -186,10 +341,26 @@ export const NFT_CONTRACT_ABI = [
   },
   {
     inputs: [
-      { internalType: "address", name: "from", type: "address" },
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
-      { internalType: "bytes", name: "_data", type: "bytes" },
+      {
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes",
+        name: "_data",
+        type: "bytes",
+      },
     ],
     name: "safeTransferFrom",
     outputs: [],
@@ -198,8 +369,16 @@ export const NFT_CONTRACT_ABI = [
   },
   {
     inputs: [
-      { internalType: "address", name: "operator", type: "address" },
-      { internalType: "bool", name: "approved", type: "bool" },
+      {
+        internalType: "address",
+        name: "operator",
+        type: "address",
+      },
+      {
+        internalType: "bool",
+        name: "approved",
+        type: "bool",
+      },
     ],
     name: "setApprovalForAll",
     outputs: [],
@@ -207,38 +386,92 @@ export const NFT_CONTRACT_ABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
+    inputs: [
+      {
+        internalType: "bytes4",
+        name: "interfaceId",
+        type: "bytes4",
+      },
+    ],
     name: "supportsInterface",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "symbol",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    name: "tokenIdsToGuildId",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-    name: "tokenURI",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      { internalType: "address", name: "from", type: "address" },
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "tokenIdsToGuildId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "tokenURI",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
     ],
     name: "transferFrom",
     outputs: [],
