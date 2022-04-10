@@ -1,16 +1,20 @@
 import { NextPage } from "next";
 import { useMoralis } from "react-moralis";
 import { Button, Icon, Input } from "web3uikit";
-import useWindowWidth from "../../helpers/hooks/useWindowWidth";
 import { createProposal } from "../../utils/snapshot/snapshot";
 import styles from "../../styles/Guild.module.css";
 
 const CreateGuild: NextPage = () => {
   const { user } = useMoralis();
-  const windowWidth = useWindowWidth(window);
 
   const handleSubmit = () => {
     console.log("hello");
+    if (!user) {
+      // TODO: Implement error notifications
+      console.error("You must have a connected wallet to continue.");
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -25,7 +29,7 @@ const CreateGuild: NextPage = () => {
           id="name"
           placeholder="Guild name"
           type="text"
-          width={windowWidth && windowWidth < 600 ? "80%" : "500px"}
+          width={window.innerWidth && window.innerWidth < 600 ? "80%" : "500px"}
         />
         <Input
           label="Max members"
@@ -33,7 +37,7 @@ const CreateGuild: NextPage = () => {
           id="members"
           placeholder="Max members"
           type="number"
-          width={windowWidth && windowWidth < 600 ? "80%" : "500px"}
+          width={window.innerWidth && window.innerWidth < 600 ? "80%" : "500px"}
         />
         <label className={styles.labelFile} htmlFor="file">
           Upload logo
