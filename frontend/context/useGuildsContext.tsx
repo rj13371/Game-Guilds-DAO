@@ -1,34 +1,58 @@
-import { useContext, createContext, ReactNode } from "react";
-import { useApiContract } from "react-moralis";
-import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../constants";
+import {
+  useContext,
+  createContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from 'react'
+import { useApiContract, useMoralis } from 'react-moralis'
+import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from '../constants'
+import Moralis from 'moralis'
 
 interface IGuildsContext {
-  data: any | undefined;
+  data: any | undefined
 }
 
 export const GuildsContext = createContext<IGuildsContext>({
   data: undefined,
-});
+})
 
 export const GuildsProvider = ({
   children,
 }: {
-  children: ReactNode;
+  children: ReactNode
 }): JSX.Element => {
-  console.log(NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS);
-  const { data, error } = useApiContract({
-    abi: NFT_CONTRACT_ABI,
-    address: NFT_CONTRACT_ADDRESS,
-    functionName: "returnGuilds",
-  });
+  const [guildData, setGuildData] = useState<any>()
+  const { isAuthenticated } = useMoralis()
 
-  console.log(data, error);
+  const getGuilds = async () => {
+    await Moralis.enableWeb3()
+
+    const sendOptions = {
+      abi: NFT_CONTRACT_ABI,
+      contractAddress: NFT_CONTRACT_ADDRESS,
+      functionName: 'returnGuilds',
+    }
+
+    const transaction = await Moralis.executeFunction(sendOptions)
+
+    const receipt = transaction
+    console.log(receipt)
+  }
+
+  useEffect(() => {
+    getGuilds()
+  }, [isAuthenticated])
+
+  console.log(guildData)
 
   return (
-    <GuildsContext.Provider value={{ data }}>{children}</GuildsContext.Provider>
-  );
-};
+    <GuildsContext.Provider value={{ guildData }}>
+      {children}
+    </GuildsContext.Provider>
+  )
+}
 
 export function useGuilds(): IGuildsContext {
-  return useContext(GuildsContext);
+  return useContext(GuildsContext)
 }
