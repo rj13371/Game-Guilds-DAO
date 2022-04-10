@@ -1,11 +1,16 @@
 import { NextPage } from "next";
-import { useMoralis } from "react-moralis";
+import { useApiContract, useMoralis } from "react-moralis";
 import { Button, Icon, Input } from "web3uikit";
 import { createProposal } from "../../utils/snapshot/snapshot";
 import styles from "../../styles/Guild.module.css";
+import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../../constants";
+import { useGuilds } from "../../context/useGuildsContext";
 
 const CreateGuild: NextPage = () => {
   const { user } = useMoralis();
+  const { guildData } = useGuilds();
+
+  console.log(guildData);
 
   const handleSubmit = () => {
     console.log("hello");

@@ -1,13 +1,20 @@
-import { useContext, createContext, ReactNode } from "react";
-import { useApiContract } from "react-moralis";
+import Moralis from "moralis/types";
+import {
+  useContext,
+  createContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
+import { useApiContract, useMoralis } from "react-moralis";
 import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../constants";
 
 interface IGuildsContext {
-  data: any | undefined;
+  guildData: any | undefined;
 }
 
 export const GuildsContext = createContext<IGuildsContext>({
-  data: undefined,
+  guildData: undefined,
 });
 
 export const GuildsProvider = ({
@@ -15,17 +22,25 @@ export const GuildsProvider = ({
 }: {
   children: ReactNode;
 }): JSX.Element => {
-  console.log(NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS);
-  const { data, error } = useApiContract({
-    abi: NFT_CONTRACT_ABI,
-    address: NFT_CONTRACT_ADDRESS,
-    functionName: "returnGuilds",
-  });
+  const [guildData, setGuildData] = useState<any>();
 
-  console.log(data, error);
+  const { runContractFunction, data, error, isLoading, isFetching } =
+    useApiContract({
+      abi: NFT_CONTRACT_ABI,
+      address: NFT_CONTRACT_ADDRESS,
+      functionName: "returnGuilds",
+    });
+
+  useEffect(() => {
+    runContractFunction();
+    setGuildData(data);
+    console.log(data);
+  }, []);
 
   return (
-    <GuildsContext.Provider value={{ data }}>{children}</GuildsContext.Provider>
+    <GuildsContext.Provider value={{ guildData }}>
+      {children}
+    </GuildsContext.Provider>
   );
 };
 
