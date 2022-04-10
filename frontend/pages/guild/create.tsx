@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useApiContract, useMoralis } from "react-moralis";
+import { useMoralis } from "react-moralis";
 import { Button, Input } from "web3uikit";
 import { createProposal } from "../../utils/snapshot/snapshot";
 import styles from "../../styles/Guild.module.css";
@@ -7,7 +7,7 @@ import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../../constants";
 import useWindowWidth from "../../helpers/hooks/useWindowWidth";
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { divide } from "lodash";
+import Moralis from "moralis";
 
 interface FormValues {
   guildName: string;
@@ -24,7 +24,25 @@ const CreateGuild: NextPage = () => {
     NFTPicture: File,
     maxMembers: number
   ) => {
-    console.log(guildName, NFTPicture, maxMembers);
+    const file = new Moralis.File(NFTPicture.name, NFTPicture);
+    await file.saveIPFS();
+    const fileURL = file._ipfs;
+
+    const sendOptions = {
+      contractAddress: NFT_CONTRACT_ADDRESS,
+      abi: NFT_CONTRACT_ABI,
+      functionName: "createGuild",
+      chain: "rinkeby",
+      params: {
+        guildName: guildName,
+        guildNFTURI: fileURL,
+        maxGuildMembers: maxMembers,
+      },
+    };
+
+    console.log("made it");
+    const transaction = await Moralis.executeFunction(sendOptions);
+    console.log(transaction);
   };
 
   const initialValues: FormValues = {
