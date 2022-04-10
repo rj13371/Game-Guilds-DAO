@@ -37,7 +37,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Game Guilds</title>
+        <title>Game Guilds DAO</title>
         <meta
           name="description"
           content="Voting platform for gaming communities"
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="main">
-        <h1 className={styles.appTitle}>Welcome to Game Guilds</h1>
+        <h1 className={styles.appTitle}>Welcome to Game Guilds DAO</h1>
         <p>
           Want to create a new community?{" "}
           <Link href="/guild/create">
