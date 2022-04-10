@@ -28,7 +28,6 @@ const Home: NextPage = () => {
         };
         const transaction = await Moralis.executeFunction(sendOptions);
 
-        console.log(transaction);
         setGuilds(transaction);
       };
       getGuilds();
