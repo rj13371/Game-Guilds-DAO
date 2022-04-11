@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import { useApiContract, useMoralis } from "react-moralis";
 import { useMoralisWeb3Api } from "react-moralis";

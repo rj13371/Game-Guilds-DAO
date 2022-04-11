@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useApiContract, useMoralis } from 'react-moralis'
